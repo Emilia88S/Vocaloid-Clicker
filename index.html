@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Vocaloid Clicker</title>
 
 <style>
@@ -15,168 +14,199 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at top, #35206b 0%, #17142f 45%, #080914 100%);
+        radial-gradient(circle at 50% 20%, #24184d 0%, #111126 45%, #080814 100%);
     color: white;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* TOP BAR */
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
 
 .topbar {
-    background: rgba(10, 10, 25, 0.9);
-    border-bottom: 2px solid #48e8ff;
-    padding: 15px 20px;
+    height: 70px;
+    background: #090917;
+    border-bottom: 2px solid #38f6ff;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 0 20px #38f6ff55;
     position: sticky;
     top: 0;
     z-index: 20;
-    box-shadow: 0 0 20px rgba(72, 232, 255, 0.3);
 }
 
 .logo {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: bold;
-    color: #5ffaff;
-    text-shadow: 0 0 10px #5ffaff;
+    color: #45f5ff;
+    text-shadow: 0 0 10px #45f5ff;
 }
 
 .money {
-    font-size: 22px;
+    color: #ffe43b;
+    font-size: 20px;
     font-weight: bold;
-    color: #ffe45e;
-    text-shadow: 0 0 10px #ffe45e;
+    text-shadow: 0 0 10px #ffe43b;
 }
 
-/* MAIN LAYOUT */
-
-.game {
+.layout {
     display: flex;
     min-height: calc(100vh - 70px);
 }
 
-/* SIDEBAR */
-
 .sidebar {
-    width: 210px;
-    padding: 20px;
-    background: rgba(12, 12, 28, 0.85);
-    border-right: 2px solid #9b5cff;
+    width: 190px;
+    background: #0b0b1b;
+    border-right: 1px solid #9d4dff;
+    padding: 22px 18px;
+    flex-shrink: 0;
 }
 
-.sidebar h2 {
-    color: #ff72d2;
+.menu-title {
+    color: #ff6bdc;
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 25px;
     text-align: center;
-    margin-top: 5px;
 }
 
-.menuButton {
+.menu-button {
     width: 100%;
-    margin: 8px 0;
-    padding: 13px;
     border: none;
     border-radius: 12px;
+    padding: 13px 8px;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, #8737ff, #d11cff);
     color: white;
-    font-size: 15px;
     font-weight: bold;
-    cursor: pointer;
-    background: linear-gradient(135deg, #7a35ff, #d82cff);
-    box-shadow: 0 0 12px rgba(190, 50, 255, 0.4);
-    transition: 0.2s;
+    font-size: 14px;
+    box-shadow: 0 0 12px #9b3cff66;
+    transition: 0.15s;
 }
 
-.menuButton:hover {
+.menu-button:hover {
     transform: scale(1.04);
-    box-shadow: 0 0 20px rgba(255, 80, 230, 0.7);
+    box-shadow: 0 0 20px #d13cffaa;
 }
-
-/* GAME AREA */
 
 .main {
     flex: 1;
-    padding: 25px;
+    padding: 35px 25px;
     text-align: center;
 }
 
-.subtitle {
-    color: #c9c9ff;
-    margin-top: -5px;
+.title {
+    font-size: 29px;
+    margin: 5px 0 10px;
 }
 
-/* CHARACTER */
+.subtitle {
+    color: #cbbcff;
+    margin-bottom: 15px;
+}
 
-.characterArea {
+.character-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
 }
 
-.character {
+.character-box {
     width: 300px;
     height: 300px;
-    border-radius: 30px;
-    cursor: pointer;
+    border: 3px solid #3df6ff;
+    border-radius: 28px;
+    background-color: white;
     background-image: url("vocaloid-characters.png");
     background-size: 500% 300%;
-    background-position: 0% 0%;
     background-repeat: no-repeat;
-    background-color: white;
-
     box-shadow:
-        0 0 15px #48e8ff,
-        0 0 40px rgba(72, 232, 255, 0.4);
-
-    transition: transform 0.1s;
-    border: 4px solid #5ffaff;
+        0 0 15px #3df6ff,
+        0 0 35px #3df6ff88;
+    cursor: pointer;
+    transition: 0.12s;
 }
 
-.character:active {
-    transform: scale(0.94);
+.character-box:hover {
+    transform: scale(1.02);
 }
 
-.clickText {
-    font-size: 20px;
-    color: #8ffaff;
-    margin: 12px;
+.character-box:active {
+    transform: scale(0.96);
 }
 
-.earnings {
-    font-size: 24px;
-    color: #ffe45e;
+.character-label {
+    margin-top: 10px;
+    color: #55efff;
+    font-size: 18px;
+}
+
+.click-value {
+    color: #ffe23b;
+    font-size: 21px;
     font-weight: bold;
+    margin-top: 8px;
+    text-shadow: 0 0 10px #ffe23b;
 }
-
-/* STATS */
 
 .stats {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
     margin-top: 20px;
 }
 
 .stat {
-    background: rgba(20, 20, 50, 0.85);
-    border: 1px solid #8e64ff;
-    padding: 12px 18px;
+    min-width: 135px;
+    padding: 12px;
+    border: 1px solid #914cff;
     border-radius: 12px;
-    min-width: 150px;
+    background: #11112b;
 }
 
-.statTitle {
-    color: #bdbdff;
-    font-size: 13px;
+.stat-name {
+    color: #bca7ff;
+    font-size: 12px;
 }
 
-.statValue {
-    font-size: 20px;
+.stat-value {
+    font-size: 17px;
     font-weight: bold;
     margin-top: 5px;
+}
+
+.music-player {
+    margin: 20px auto 0;
+    max-width: 405px;
+    border: 1px solid #ff48bc;
+    border-radius: 12px;
+    padding: 12px;
+    background: #11112b;
+}
+
+.music-title {
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
+.music-buttons button {
+    background: #722dff;
+    border: none;
     color: white;
+    padding: 8px 13px;
+    border-radius: 8px;
+    margin: 3px;
+}
+
+.side-info {
+    margin-top: 18px;
+    color: #aaa4c8;
+    font-size: 13px;
 }
 
 /* PANELS */
@@ -184,189 +214,118 @@ body {
 .panel {
     display: none;
     position: fixed;
+    z-index: 100;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: min(900px, 92vw);
+    width: min(700px, 92vw);
     max-height: 85vh;
     overflow-y: auto;
-    background: #121329;
-    border: 2px solid #ff62d8;
-    border-radius: 20px;
-    padding: 25px;
-    z-index: 100;
-    box-shadow:
-        0 0 25px rgba(255, 80, 220, 0.5),
-        0 0 70px rgba(80, 200, 255, 0.2);
+    background: #101025;
+    border: 2px solid #b343ff;
+    border-radius: 18px;
+    box-shadow: 0 0 35px #b343ff88;
+    padding: 22px;
 }
 
 .panel.active {
     display: block;
 }
 
-.panelHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.panelHeader h2 {
+.panel h2 {
     margin-top: 0;
-    color: #ff75dc;
+    color: #ff72d6;
 }
 
-.closeButton {
-    background: #ff3e7f;
-    color: white;
+.close-button {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
     border: none;
-    width: 38px;
-    height: 38px;
     border-radius: 50%;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.closeButton:hover {
-    transform: scale(1.1);
-}
-
-/* SHOP */
-
-.shopGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-.shopCard {
-    background: #1b1d3b;
-    border: 2px solid #5555a8;
-    border-radius: 16px;
-    padding: 12px;
-    text-align: center;
-    transition: 0.2s;
-}
-
-.shopCard:hover {
-    transform: translateY(-4px);
-    border-color: #ff69dc;
-    box-shadow: 0 0 18px rgba(255, 105, 220, 0.35);
-}
-
-.shopCharacter {
-    width: 150px;
-    height: 150px;
-    margin: auto;
-    background-image: url("vocaloid-characters.png");
-    background-size: 500% 300%;
-    background-repeat: no-repeat;
-    background-color: white;
-    border-radius: 15px;
-}
-
-.shopCard h3 {
-    margin: 8px 0 5px;
-}
-
-.price {
-    color: #ffe45e;
+    background: #ff3f91;
+    color: white;
+    font-size: 19px;
     font-weight: bold;
 }
 
-.buyButton {
-    margin-top: 10px;
+.panel-item {
+    background: #181838;
+    border: 1px solid #6f55d9;
+    border-radius: 12px;
+    padding: 13px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.panel-item strong {
+    color: #ffffff;
+}
+
+.panel-item small {
+    color: #bdb7d6;
+    display: block;
+    margin-top: 4px;
+}
+
+.buy-button {
     border: none;
-    border-radius: 10px;
-    padding: 9px 15px;
-    background: linear-gradient(135deg, #31d7ff, #8d52ff);
+    border-radius: 9px;
+    padding: 9px 13px;
+    background: linear-gradient(90deg, #7d35ff, #dd20ff);
     color: white;
     font-weight: bold;
-    cursor: pointer;
 }
 
-.buyButton:disabled {
-    background: #555;
+.buy-button:disabled {
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
-/* UPGRADE */
-
-.upgradeBox {
-    background: #1c1e40;
-    border: 2px solid #5ffaff;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 10px 0;
+.rebirth-warning {
+    color: #ff9adf;
+    background: #27152d;
+    border: 1px solid #ff48bb;
+    padding: 13px;
+    border-radius: 12px;
+    margin: 15px 0;
 }
 
-.bigButton {
+.rebirth-button {
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #00d9ff, #7855ff);
+    background: linear-gradient(90deg, #ff287f, #ff8b22);
     color: white;
     font-size: 17px;
     font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
 }
 
-.bigButton:disabled {
-    background: #555;
+.rebirth-button:disabled {
+    opacity: 0.35;
     cursor: not-allowed;
 }
 
-/* MUSIC */
+/* FLOATING MONEY */
 
-.musicBox {
-    margin: 20px auto;
-    max-width: 450px;
-    background: rgba(20,20,50,0.8);
-    border: 1px solid #ff72d2;
-    border-radius: 15px;
-    padding: 15px;
-}
-
-.musicButtons button {
-    margin: 5px;
-    padding: 9px 15px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* REBIRTH */
-
-.rebirthBox {
-    text-align: center;
-    padding: 25px;
-    background: linear-gradient(135deg, #24154d, #391b4f);
-    border-radius: 15px;
-    border: 2px solid #c55cff;
-}
-
-.rebirthNumber {
-    font-size: 40px;
-    color: #ff73e2;
-    font-weight: bold;
-}
-
-/* PARTICLES */
-
-.floatingMoney {
+.floating-money {
     position: fixed;
     pointer-events: none;
-    color: #ffe45e;
-    font-weight: bold;
+    color: #ffe43b;
     font-size: 20px;
-    animation: floatUp 0.8s forwards;
+    font-weight: bold;
+    text-shadow: 0 0 8px #ffe43b;
+    animation: floatMoney 0.8s ease-out forwards;
     z-index: 200;
 }
 
-@keyframes floatUp {
+@keyframes floatMoney {
     0% {
         opacity: 1;
         transform: translateY(0);
@@ -374,50 +333,40 @@ body {
 
     100% {
         opacity: 0;
-        transform: translateY(-70px);
+        transform: translateY(-80px);
     }
 }
 
-/* OVERLAY */
+/* RESPONSIVE */
 
-.overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    z-index: 90;
-}
-
-.overlay.active {
-    display: block;
-}
-
-/* MOBILE */
-
-@media(max-width: 700px) {
-
-    .game {
+@media (max-width: 700px) {
+    .layout {
         flex-direction: column;
     }
 
     .sidebar {
         width: 100%;
         border-right: none;
-        border-bottom: 2px solid #9b5cff;
+        border-bottom: 1px solid #9d4dff;
+        padding: 12px;
     }
 
-    .sidebar h2 {
-        margin-bottom: 5px;
+    .menu-title {
+        margin-bottom: 10px;
     }
 
-    .menuButton {
+    .menu-button {
         width: 48%;
-        display: inline-block;
+        margin: 3px 1%;
     }
 
-    .character {
-        width: 260px;
-        height: 260px;
+    .main {
+        padding: 25px 10px;
+    }
+
+    .character-box {
+        width: min(300px, 82vw);
+        height: min(300px, 82vw);
     }
 }
 </style>
@@ -425,62 +374,54 @@ body {
 
 <body>
 
-<!-- TOP -->
-
 <div class="topbar">
     <div class="logo">🎤 VOCALOID CLICKER</div>
     <div class="money" id="moneyDisplay">$0</div>
 </div>
 
-<div class="game">
-
-    <!-- SIDEBAR -->
+<div class="layout">
 
     <aside class="sidebar">
+        <div class="menu-title">🎀 MENU</div>
 
-        <h2>🎀 MENU</h2>
-
-        <button class="menuButton" onclick="openPanel('upgradePanel')">
+        <button class="menu-button" onclick="openPanel('upgradePanel')">
             ⚡ Upgrades
         </button>
 
-        <button class="menuButton" onclick="openPanel('vocaloidPanel')">
+        <button class="menu-button" onclick="openPanel('vocaloidPanel')">
             🎤 Vocaloid Shop
         </button>
 
-        <button class="menuButton" onclick="openPanel('petPanel')">
+        <button class="menu-button" onclick="openPanel('petPanel')">
             🐾 Pet Shop
         </button>
 
-        <button class="menuButton" onclick="openPanel('rebirthPanel')">
+        <button class="menu-button" onclick="openPanel('rebirthPanel')">
             🔄 Rebirth
         </button>
-
     </aside>
-
-    <!-- MAIN GAME -->
 
     <main class="main">
 
-        <h1 id="characterName">Hatsune Miku</h1>
+        <h1 class="title" id="characterName">Hatsune Miku</h1>
 
-        <p class="subtitle">
+        <div class="subtitle">
             Click your Vocaloid to earn money!
-        </p>
+        </div>
 
-        <div class="characterArea">
+        <div class="character-area">
 
             <div
-                id="mainCharacter"
-                class="character"
-                onclick="clickCharacter(event)">
-            </div>
+                class="character-box"
+                id="characterBox"
+                onclick="clickCharacter(event)"
+            ></div>
 
-            <div class="clickText">
+            <div class="character-label">
                 Click me!
             </div>
 
-            <div class="earnings" id="earningsDisplay">
+            <div class="click-value" id="clickValue">
                 +$10 per click
             </div>
 
@@ -489,107 +430,99 @@ body {
         <div class="stats">
 
             <div class="stat">
-                <div class="statTitle">Speed</div>
-                <div class="statValue" id="speedDisplay">1×</div>
+                <div class="stat-name">Speed</div>
+                <div class="stat-value" id="speedDisplay">1×</div>
             </div>
 
             <div class="stat">
-                <div class="statTitle">Vocaloid Bonus</div>
-                <div class="statValue" id="characterBonus">×1</div>
+                <div class="stat-name">Vocaloid Bonus</div>
+                <div class="stat-value" id="vocaloidBonus">×1</div>
             </div>
 
             <div class="stat">
-                <div class="statTitle">Pet Bonus</div>
-                <div class="statValue" id="petBonus">+0%</div>
+                <div class="stat-name">Pet Bonus</div>
+                <div class="stat-value" id="petBonus">+0%</div>
             </div>
 
             <div class="stat">
-                <div class="statTitle">Rebirth Bonus</div>
-                <div class="statValue" id="rebirthBonus">+0%</div>
+                <div class="stat-name">Rebirth Bonus</div>
+                <div class="stat-value" id="rebirthBonus">+0%</div>
             </div>
 
         </div>
 
-        <!-- MUSIC -->
+        <div class="music-player">
 
-        <div class="musicBox">
-
-            <div>🎵 <b id="songName">No song playing</b></div>
-
-            <div class="musicButtons">
-                <button onclick="toggleMusic()">▶ / ⏸</button>
-                <button onclick="nextSong()">⏭ Next Song</button>
+            <div class="music-title" id="songTitle">
+                🎵 No song playing
             </div>
 
-            <audio id="musicPlayer"></audio>
+            <div class="music-buttons">
+                <button onclick="toggleMusic()">▶️ Play / Pause</button>
+                <button onclick="nextSong()">⏭️ Next Song</button>
+            </div>
 
+        </div>
+
+        <div class="side-info">
+            Rebirths: <span id="rebirthCount">0</span>
         </div>
 
     </main>
-
 </div>
 
 
-<!-- OVERLAY -->
+<!-- UPGRADES -->
 
-<div id="overlay" class="overlay" onclick="closeAllPanels()"></div>
+<div class="panel" id="upgradePanel">
 
+    <button class="close-button" onclick="closePanel('upgradePanel')">
+        ×
+    </button>
 
-<!-- UPGRADE PANEL -->
+    <h2>⚡ Upgrades</h2>
 
-<div id="upgradePanel" class="panel">
-
-    <div class="panelHeader">
-        <h2>⚡ Upgrades</h2>
-
-        <button class="closeButton" onclick="closeAllPanels()">
-            ×
-        </button>
-    </div>
-
-    <div class="upgradeBox">
-
-        <h3>🤖 Auto Clicker</h3>
-
-        <p id="autoClickText">
-            Unlock Auto Clicker for $50.
-        </p>
+    <div class="panel-item">
+        <div>
+            <strong>🖱️ Auto Clicker</strong>
+            <small id="autoClickInfo">
+                Unlock for $50
+            </small>
+        </div>
 
         <button
+            class="buy-button"
             id="autoClickButton"
-            class="bigButton"
-            onclick="unlockAutoClick()">
-            Unlock Auto Clicker — $50
+            onclick="buyAutoClick()"
+        >
+            $50
         </button>
-
     </div>
 
-
-    <div class="upgradeBox">
-
-        <h3>⚡ Speed Upgrade</h3>
-
-        <p>
-            Current speed:
-            <b id="upgradeSpeedDisplay">1×</b>
-        </p>
-
-        <p>
-            Each upgrade adds +0.5× speed.
-        </p>
-
-        <p>
-            Upgrade cost:
-            <b id="upgradeCostDisplay">$100</b>
-        </p>
+    <div class="panel-item">
+        <div>
+            <strong>⚡ Speed Upgrade</strong>
+            <small id="speedInfo">
+                +0.5× speed
+            </small>
+        </div>
 
         <button
+            class="buy-button"
             id="speedButton"
-            class="bigButton"
-            onclick="buySpeedUpgrade()">
-            Buy Speed Upgrade
+            onclick="buySpeedUpgrade()"
+        >
+            $100
         </button>
+    </div>
 
+    <div class="panel-item">
+        <div>
+            <strong>Current Speed</strong>
+            <small id="currentSpeedInfo">
+                1×
+            </small>
+        </div>
     </div>
 
 </div>
@@ -597,90 +530,108 @@ body {
 
 <!-- VOCALOID SHOP -->
 
-<div id="vocaloidPanel" class="panel">
+<div class="panel" id="vocaloidPanel">
 
-    <div class="panelHeader">
+    <button class="close-button" onclick="closePanel('vocaloidPanel')">
+        ×
+    </button>
 
-        <h2>🎤 Vocaloid Shop</h2>
+    <h2>🎤 Vocaloid Shop</h2>
 
-        <button class="closeButton" onclick="closeAllPanels()">
-            ×
-        </button>
-
-    </div>
-
-    <p>
-        Buy Vocaloids to increase how much money you earn!
-    </p>
-
-    <div class="shopGrid" id="vocaloidShop"></div>
+    <div id="vocaloidList"></div>
 
 </div>
 
 
 <!-- PET SHOP -->
 
-<div id="petPanel" class="panel">
+<div class="panel" id="petPanel">
 
-    <div class="panelHeader">
+    <button class="close-button" onclick="closePanel('petPanel')">
+        ×
+    </button>
 
-        <h2>🐾 Pet Shop</h2>
+    <h2>🐾 Pet Shop</h2>
 
-        <button class="closeButton" onclick="closeAllPanels()">
-            ×
-        </button>
-
-    </div>
-
-    <p>
-        Pets give you permanent earning bonuses.
-    </p>
-
-    <div class="shopGrid" id="petShop"></div>
+    <div id="petList"></div>
 
 </div>
 
 
 <!-- REBIRTH -->
 
-<div id="rebirthPanel" class="panel">
+<div class="panel" id="rebirthPanel">
 
-    <div class="panelHeader">
+    <button class="close-button" onclick="closePanel('rebirthPanel')">
+        ×
+    </button>
 
-        <h2>🔄 Rebirth</h2>
+    <h2>🔄 Rebirth</h2>
 
-        <button class="closeButton" onclick="closeAllPanels()">
-            ×
-        </button>
+    <div class="rebirth-warning">
+
+        <strong>WARNING!</strong>
+
+        <br><br>
+
+        Rebirthing will reset:
+
+        <br>
+        💰 Money
+        <br>
+        ⚡ Speed
+        <br>
+        🖱️ Auto Clicker
+        <br>
+        🎤 Vocaloid unlocks
+        <br>
+        🐾 Pets
+        <br>
+        ⬆️ Upgrades
+
+        <br><br>
+
+        But you will KEEP your permanent rebirth bonus!
 
     </div>
 
-    <div class="rebirthBox">
-
-        <h3>Reach 100,000× speed to Rebirth!</h3>
-
-        <div class="rebirthNumber" id="rebirthCount">
-            0
+    <div class="panel-item">
+        <div>
+            <strong>Required Speed</strong>
+            <small>100,000×</small>
         </div>
 
-        <p>
-            Rebirth gives you a permanent
-            <b>+25% earnings bonus</b>.
-        </p>
-
-        <p>
-            You keep your Vocaloids and pets.
-        </p>
-
-        <button
-            id="rebirthButton"
-            class="bigButton"
-            onclick="rebirth()"
-            disabled>
-            🔒 Reach 100,000× Speed
-        </button>
-
+        <div id="rebirthRequirement">
+            1× / 100,000×
+        </div>
     </div>
+
+    <div class="panel-item">
+        <div>
+            <strong>Current Permanent Bonus</strong>
+            <small id="currentRebirthBonus">
+                +0%
+            </small>
+        </div>
+    </div>
+
+    <div class="panel-item">
+        <div>
+            <strong>Bonus After Rebirth</strong>
+            <small>
+                +25% permanent earnings
+            </small>
+        </div>
+    </div>
+
+    <button
+        class="rebirth-button"
+        id="rebirthButton"
+        onclick="doRebirth()"
+        disabled
+    >
+        🔄 REBIRTH
+    </button>
 
 </div>
 
@@ -691,21 +642,25 @@ body {
    GAME DATA
 ========================= */
 
+const BASE_CLICK = 10;
+const MAX_SPEED = 100000;
+const REBIRTH_REQUIREMENT = 100000;
+
 let money = 0;
-
 let speed = 1;
-
-let upgradeLevel = 0;
+let speedUpgrades = 0;
 
 let autoClickUnlocked = false;
+let autoClickLevel = 0;
+
+let selectedCharacter = 0;
 
 let rebirths = 0;
 
-let characterMultiplier = 1;
+let ownedCharacters = [0];
+let ownedPets = [];
 
-let petMultiplier = 1;
-
-let currentCharacter = 0;
+let petBonus = 0;
 
 
 /* =========================
@@ -718,120 +673,105 @@ const vocaloids = [
         name: "Hatsune Miku",
         price: 0,
         multiplier: 1,
-        col: 0,
-        row: 0
+        position: "0% 0%"
     },
 
     {
         name: "Megurine Luka",
         price: 1500,
         multiplier: 1.5,
-        col: 1,
-        row: 0
+        position: "25% 0%"
     },
 
     {
         name: "Kagamine Rin",
         price: 2000,
         multiplier: 2,
-        col: 2,
-        row: 0
+        position: "50% 0%"
     },
 
     {
         name: "Kagamine Len",
         price: 2500,
         multiplier: 2.5,
-        col: 3,
-        row: 0
+        position: "75% 0%"
     },
 
     {
         name: "MEIKO",
         price: 3500,
         multiplier: 3,
-        col: 4,
-        row: 0
+        position: "100% 0%"
     },
 
     {
         name: "KAITO",
         price: 4500,
         multiplier: 4,
-        col: 0,
-        row: 1
+        position: "0% 50%"
     },
 
     {
         name: "GUMI",
         price: 5000,
         multiplier: 5,
-        col: 1,
-        row: 1
+        position: "25% 50%"
     },
 
     {
         name: "v flower",
         price: 6000,
         multiplier: 6,
-        col: 2,
-        row: 1
+        position: "50% 50%"
     },
 
     {
         name: "IA",
         price: 7000,
         multiplier: 8,
-        col: 3,
-        row: 1
+        position: "75% 50%"
     },
 
     {
         name: "Yuzuki Yukari",
         price: 8000,
         multiplier: 10,
-        col: 4,
-        row: 1
+        position: "100% 50%"
     },
 
     {
         name: "Otomachi Una",
         price: 9000,
         multiplier: 12,
-        col: 0,
-        row: 2
+        position: "0% 100%"
     },
 
     {
         name: "SeeU",
         price: 10000,
         multiplier: 15,
-        col: 1,
-        row: 2
+        position: "25% 100%"
     },
 
     {
         name: "Kasane Teto",
         price: 12500,
         multiplier: 20,
-        col: 2,
-        row: 2
+        position: "50% 100%"
     },
 
     {
         name: "Kizuna AI",
         price: 15000,
         multiplier: 30,
-        col: 3,
-        row: 2
+        position: "75% 100%"
     },
 
     {
         name: "??? Secret Vocaloid",
         price: 25000,
         multiplier: 50,
-        col: 4,
-        row: 2
+        position: "100% 100%"
     }
 
 ];
@@ -883,19 +823,27 @@ const pets = [
 
 
 /* =========================
-   FORMAT MONEY
+   PANELS
 ========================= */
 
-function formatMoney(number) {
+function openPanel(id) {
+    document.getElementById(id).classList.add("active");
+}
 
-    return "$" + Math.floor(number).toLocaleString();
-
+function closePanel(id) {
+    document.getElementById(id).classList.remove("active");
 }
 
 
 /* =========================
-   EARNINGS
+   CALCULATIONS
 ========================= */
+
+function getCharacterMultiplier() {
+
+    return vocaloids[selectedCharacter].multiplier;
+
+}
 
 function getRebirthMultiplier() {
 
@@ -903,33 +851,32 @@ function getRebirthMultiplier() {
 
 }
 
+function getPetMultiplier() {
+
+    return 1 + petBonus;
+
+}
 
 function getClickEarnings() {
 
-    return 10
-        * speed
-        * characterMultiplier
-        * getRebirthMultiplier()
-        * petMultiplier;
+    return Math.floor(
+        BASE_CLICK *
+        speed *
+        getCharacterMultiplier() *
+        getPetMultiplier() *
+        getRebirthMultiplier()
+    );
 
 }
 
 
 /* =========================
-   CLICK CHARACTER
+   MONEY
 ========================= */
 
-function clickCharacter(event) {
-
-    const amount = getClickEarnings();
+function addMoney(amount) {
 
     money += amount;
-
-    createMoneyParticle(
-        event.clientX,
-        event.clientY,
-        amount
-    );
 
     updateDisplay();
 
@@ -937,229 +884,212 @@ function clickCharacter(event) {
 
 
 /* =========================
-   MONEY PARTICLE
+   CHARACTER CLICK
 ========================= */
 
-function createMoneyParticle(x, y, amount) {
+function clickCharacter(event) {
 
-    const particle = document.createElement("div");
+    const earnings = getClickEarnings();
 
-    particle.className = "floatingMoney";
+    addMoney(earnings);
 
-    particle.innerText = "+" + formatMoney(amount);
+    createFloatingMoney(
+        event.clientX,
+        event.clientY,
+        earnings
+    );
 
-    particle.style.left = x + "px";
+}
 
-    particle.style.top = y + "px";
 
-    document.body.appendChild(particle);
+/* =========================
+   FLOATING MONEY
+========================= */
+
+function createFloatingMoney(x, y, amount) {
+
+    const element = document.createElement("div");
+
+    element.className = "floating-money";
+
+    element.textContent = "+$" + formatMoney(amount);
+
+    element.style.left = x + "px";
+    element.style.top = y + "px";
+
+    document.body.appendChild(element);
 
     setTimeout(() => {
-
-        particle.remove();
-
+        element.remove();
     }, 800);
 
 }
 
 
 /* =========================
-   SPEED UPGRADES
+   SPEED UPGRADE
 ========================= */
 
-function getUpgradeCost() {
+function getSpeedUpgradeCost() {
 
-    if (upgradeLevel === 0) {
-
+    if (speedUpgrades === 0) {
         return 100;
-
     }
 
-    return 100 + ((upgradeLevel) * 150);
+    return 150;
 
 }
 
 
 function buySpeedUpgrade() {
 
-    if (speed >= 100000) {
-
+    if (speed >= MAX_SPEED) {
         return;
-
     }
 
-    const cost = getUpgradeCost();
+    const cost = getSpeedUpgradeCost();
 
     if (money < cost) {
-
         alert("You don't have enough money!");
 
         return;
-
     }
 
     money -= cost;
 
     speed += 0.5;
 
-    upgradeLevel++;
+    speedUpgrades++;
+
+    if (speed > MAX_SPEED) {
+        speed = MAX_SPEED;
+    }
 
     updateDisplay();
+
+    saveGame();
 
 }
 
 
 /* =========================
-   AUTO CLICK
+   AUTO CLICKER
 ========================= */
 
-function unlockAutoClick() {
+function buyAutoClick() {
 
-    if (autoClickUnlocked) {
+    if (!autoClickUnlocked) {
 
-        return;
+        if (money < 50) {
+
+            alert("You need $50 to unlock Auto Click!");
+
+            return;
+        }
+
+        money -= 50;
+
+        autoClickUnlocked = true;
+        autoClickLevel = 1;
+
+    } else {
+
+        const cost = 250 + (autoClickLevel * 250);
+
+        if (money < cost) {
+
+            alert("You don't have enough money!");
+
+            return;
+        }
+
+        money -= cost;
+
+        autoClickLevel++;
 
     }
-
-    if (money < 50) {
-
-        alert("You need $50 to unlock Auto Clicker!");
-
-        return;
-
-    }
-
-    money -= 50;
-
-    autoClickUnlocked = true;
 
     updateDisplay();
+
+    saveGame();
 
 }
 
 
-/*
-   Auto Clicker earns once per second.
-   This keeps the browser stable even at 100,000×.
-*/
+/* =========================
+   AUTO CLICK LOOP
+========================= */
 
 setInterval(() => {
 
-    if (!autoClickUnlocked) {
+    if (autoClickUnlocked) {
 
-        return;
+        const earnings =
+            getClickEarnings() * autoClickLevel;
+
+        addMoney(earnings);
 
     }
-
-    money += getClickEarnings();
-
-    updateDisplay();
 
 }, 1000);
 
 
 /* =========================
-   CHARACTER SHOP
+   VOCALOID SHOP
 ========================= */
 
-function createVocaloidShop() {
+function renderVocaloidShop() {
 
-    const shop = document.getElementById("vocaloidShop");
+    const list =
+        document.getElementById("vocaloidList");
 
-    shop.innerHTML = "";
+    list.innerHTML = "";
 
     vocaloids.forEach((vocaloid, index) => {
 
-        const card = document.createElement("div");
+        const item =
+            document.createElement("div");
 
-        card.className = "shopCard";
+        item.className = "panel-item";
 
+        const owned =
+            ownedCharacters.includes(index);
 
-        const image = document.createElement("div");
+        const selected =
+            selectedCharacter === index;
 
-        image.className = "shopCharacter";
+        let buttonText = "";
 
-
-        const xPositions = [
-            "0%",
-            "25%",
-            "50%",
-            "75%",
-            "100%"
-        ];
-
-        const yPositions = [
-            "0%",
-            "50%",
-            "100%"
-        ];
-
-
-        image.style.backgroundPosition =
-            xPositions[vocaloid.col] +
-            " " +
-            yPositions[vocaloid.row];
-
-
-        card.appendChild(image);
-
-
-        const title = document.createElement("h3");
-
-        title.innerText = vocaloid.name;
-
-        card.appendChild(title);
-
-
-        const multiplier = document.createElement("div");
-
-        multiplier.innerText =
-            "×" + vocaloid.multiplier + " earnings";
-
-        card.appendChild(multiplier);
-
-
-        const price = document.createElement("div");
-
-        price.className = "price";
-
-        price.innerText =
-            vocaloid.price === 0
-                ? "FREE"
-                : formatMoney(vocaloid.price);
-
-        card.appendChild(price);
-
-
-        const button = document.createElement("button");
-
-        button.className = "buyButton";
-
-
-        if (index === currentCharacter) {
-
-            button.innerText = "Selected";
-
-            button.disabled = true;
-
+        if (selected) {
+            buttonText = "Selected";
+        } else if (owned) {
+            buttonText = "Use";
+        } else {
+            buttonText =
+                "$" + formatMoney(vocaloid.price);
         }
 
-        else {
+        item.innerHTML = `
 
-            button.innerText = "Buy / Select";
+            <div>
+                <strong>${vocaloid.name}</strong>
 
-            button.onclick = () => {
+                <small>
+                    Earnings multiplier: ×${vocaloid.multiplier}
+                </small>
+            </div>
 
-                buyVocaloid(index);
+            <button
+                class="buy-button"
+                ${selected ? "disabled" : ""}
+                onclick="useOrBuyCharacter(${index})"
+            >
+                ${buttonText}
+            </button>
 
-            };
+        `;
 
-        }
-
-
-        card.appendChild(button);
-
-        shop.appendChild(card);
+        list.appendChild(item);
 
     });
 
@@ -1167,84 +1097,40 @@ function createVocaloidShop() {
 
 
 /* =========================
-   BUY VOCALOID
+   BUY / USE VOCALOID
 ========================= */
 
-function buyVocaloid(index) {
+function useOrBuyCharacter(index) {
 
-    const vocaloid = vocaloids[index];
+    if (ownedCharacters.includes(index)) {
 
-    if (money < vocaloid.price) {
+        selectedCharacter = index;
 
-        alert(
-            "You need " +
-            formatMoney(vocaloid.price) +
-            "!"
-        );
+    } else {
 
-        return;
+        const character =
+            vocaloids[index];
+
+        if (money < character.price) {
+
+            alert("You don't have enough money!");
+
+            return;
+        }
+
+        money -= character.price;
+
+        ownedCharacters.push(index);
+
+        selectedCharacter = index;
 
     }
 
-    money -= vocaloid.price;
-
-    currentCharacter = index;
-
-    characterMultiplier =
-        vocaloid.multiplier;
-
-
-    updateCharacterImage();
-
-    createVocaloidShop();
+    renderVocaloidShop();
 
     updateDisplay();
 
-}
-
-
-/* =========================
-   CHARACTER IMAGE
-========================= */
-
-function updateCharacterImage() {
-
-    const character =
-        vocaloids[currentCharacter];
-
-    const xPositions = [
-        "0%",
-        "25%",
-        "50%",
-        "75%",
-        "100%"
-    ];
-
-    const yPositions = [
-        "0%",
-        "50%",
-        "100%"
-    ];
-
-
-    const element =
-        document.getElementById("mainCharacter");
-
-
-    element.style.backgroundPosition =
-        xPositions[character.col] +
-        " " +
-        yPositions[character.row];
-
-
-    document.getElementById("characterName")
-        .innerText =
-        character.name;
-
-
-    document.getElementById("characterBonus")
-        .innerText =
-        "×" + character.multiplier;
+    saveGame();
 
 }
 
@@ -1253,82 +1139,44 @@ function updateCharacterImage() {
    PET SHOP
 ========================= */
 
-function createPetShop() {
+function renderPetShop() {
 
-    const shop =
-        document.getElementById("petShop");
+    const list =
+        document.getElementById("petList");
 
-    shop.innerHTML = "";
-
+    list.innerHTML = "";
 
     pets.forEach((pet, index) => {
 
-        const card =
+        const owned =
+            ownedPets.includes(index);
+
+        const item =
             document.createElement("div");
 
-        card.className = "shopCard";
+        item.className = "panel-item";
 
+        item.innerHTML = `
 
-        const emoji =
-            document.createElement("div");
+            <div>
+                <strong>🐾 ${pet.name}</strong>
 
-        emoji.style.fontSize = "70px";
+                <small>
+                    +${pet.bonus * 100}% earnings
+                </small>
+            </div>
 
-        emoji.innerText =
-            ["🧸", "🎀", "🐧", "🐱", "🌈", "❓"][index];
+            <button
+                class="buy-button"
+                ${owned ? "disabled" : ""}
+                onclick="buyPet(${index})"
+            >
+                ${owned ? "Owned" : "$" + formatMoney(pet.price)}
+            </button>
 
-        card.appendChild(emoji);
+        `;
 
-
-        const title =
-            document.createElement("h3");
-
-        title.innerText =
-            pet.name;
-
-        card.appendChild(title);
-
-
-        const bonus =
-            document.createElement("div");
-
-        bonus.innerText =
-            "+" +
-            Math.round(pet.bonus * 100) +
-            "% earnings";
-
-        card.appendChild(bonus);
-
-
-        const price =
-            document.createElement("div");
-
-        price.className = "price";
-
-        price.innerText =
-            formatMoney(pet.price);
-
-        card.appendChild(price);
-
-
-        const button =
-            document.createElement("button");
-
-        button.className = "buyButton";
-
-        button.innerText = "Buy";
-
-
-        button.onclick = () => {
-
-            buyPet(index);
-
-        };
-
-
-        card.appendChild(button);
-
-        shop.appendChild(card);
+        list.appendChild(item);
 
     });
 
@@ -1341,25 +1189,30 @@ function createPetShop() {
 
 function buyPet(index) {
 
+    if (ownedPets.includes(index)) {
+        return;
+    }
+
     const pet = pets[index];
 
     if (money < pet.price) {
 
-        alert(
-            "You need " +
-            formatMoney(pet.price) +
-            "!"
-        );
+        alert("You don't have enough money!");
 
         return;
-
     }
 
     money -= pet.price;
 
-    petMultiplier += pet.bonus;
+    ownedPets.push(index);
+
+    petBonus += pet.bonus;
+
+    renderPetShop();
 
     updateDisplay();
+
+    saveGame();
 
 }
 
@@ -1368,222 +1221,71 @@ function buyPet(index) {
    REBIRTH
 ========================= */
 
-function rebirth() {
+function doRebirth() {
 
-    if (speed < 100000) {
+    if (speed < REBIRTH_REQUIREMENT) {
 
         alert(
-            "You need 100,000× speed to rebirth!"
+            "You need 100,000× speed before you can rebirth!"
         );
 
         return;
-
     }
 
-
-    const answer =
-        confirm(
-            "Are you sure you want to Rebirth?\n\n" +
-            "Your money, speed and upgrades will reset.\n" +
-            "Your Vocaloids and pets will stay!"
-        );
-
+    const answer = confirm(
+        "Are you sure you want to rebirth?\n\n" +
+        "You will lose your money, speed, Vocaloids, pets and upgrades.\n\n" +
+        "You will KEEP your rebirth bonus."
+    );
 
     if (!answer) {
-
         return;
-
     }
 
+
+    /* RESET EVERYTHING */
 
     money = 0;
 
     speed = 1;
 
-    upgradeLevel = 0;
+    speedUpgrades = 0;
 
     autoClickUnlocked = false;
 
+    autoClickLevel = 0;
+
+    selectedCharacter = 0;
+
+    ownedCharacters = [0];
+
+    ownedPets = [];
+
+    petBonus = 0;
+
+
+    /* KEEP REBIRTH */
+
     rebirths++;
+
 
     updateDisplay();
 
-}
+    renderVocaloidShop();
 
+    renderPetShop();
 
-/* =========================
-   PANELS
-========================= */
+    saveGame();
 
-function openPanel(id) {
+    closePanel("rebirthPanel");
 
-    closeAllPanels();
-
-    document
-        .getElementById(id)
-        .classList.add("active");
-
-    document
-        .getElementById("overlay")
-        .classList.add("active");
-
-}
-
-
-function closeAllPanels() {
-
-    document
-        .querySelectorAll(".panel")
-        .forEach(panel => {
-
-            panel.classList.remove("active");
-
-        });
-
-
-    document
-        .getElementById("overlay")
-        .classList.remove("active");
-
-}
-
-
-/* =========================
-   DISPLAY
-========================= */
-
-function updateDisplay() {
-
-    document.getElementById("moneyDisplay")
-        .innerText =
-        formatMoney(money);
-
-
-    document.getElementById("speedDisplay")
-        .innerText =
-        speed.toLocaleString() + "×";
-
-
-    document.getElementById("upgradeSpeedDisplay")
-        .innerText =
-        speed.toLocaleString() + "×";
-
-
-    document.getElementById("earningsDisplay")
-        .innerText =
-        "+" +
-        formatMoney(getClickEarnings()) +
-        " per click";
-
-
-    document.getElementById("petBonus")
-        .innerText =
-        "+" +
-        Math.round((petMultiplier - 1) * 100) +
-        "%";
-
-
-    document.getElementById("rebirthBonus")
-        .innerText =
-        "+" +
-        Math.round(rebirths * 25) +
-        "%";
-
-
-    document.getElementById("rebirthCount")
-        .innerText =
-        rebirths;
-
-
-    document.getElementById("upgradeCostDisplay")
-        .innerText =
-        formatMoney(getUpgradeCost());
-
-
-    /* Auto click button */
-
-    const autoButton =
-        document.getElementById("autoClickButton");
-
-
-    const autoText =
-        document.getElementById("autoClickText");
-
-
-    if (autoClickUnlocked) {
-
-        autoText.innerText =
-            "Auto Clicker is unlocked! It earns money automatically.";
-
-        autoButton.innerText =
-            "✅ Auto Clicker Unlocked";
-
-        autoButton.disabled = true;
-
-    }
-
-    else {
-
-        autoText.innerText =
-            "Unlock Auto Clicker for $50.";
-
-        autoButton.innerText =
-            "Unlock Auto Clicker — $50";
-
-        autoButton.disabled = false;
-
-    }
-
-
-    /* Speed button */
-
-    const speedButton =
-        document.getElementById("speedButton");
-
-
-    if (speed >= 100000) {
-
-        speedButton.innerText =
-            "🏆 Maximum Speed Reached!";
-
-        speedButton.disabled = true;
-
-    }
-
-    else {
-
-        speedButton.innerText =
-            "Buy Speed Upgrade — " +
-            formatMoney(getUpgradeCost());
-
-        speedButton.disabled = false;
-
-    }
-
-
-    /* Rebirth button */
-
-    const rebirthButton =
-        document.getElementById("rebirthButton");
-
-
-    if (speed >= 100000) {
-
-        rebirthButton.innerText =
-            "🔄 REBIRTH NOW";
-
-        rebirthButton.disabled = false;
-
-    }
-
-    else {
-
-        rebirthButton.innerText =
-            "🔒 Reach 100,000× Speed";
-
-        rebirthButton.disabled = true;
-
-    }
+    alert(
+        "🎉 REBIRTH COMPLETE! 🎉\n\n" +
+        "Everything has been reset.\n\n" +
+        "Permanent rebirth bonus: +" +
+        (rebirths * 25) +
+        "%"
+    );
 
 }
 
@@ -1593,84 +1295,68 @@ function updateDisplay() {
 ========================= */
 
 const songs = [
-
-    {
-        name: "Song 1",
-        file: "music/song1.mp3"
-    },
-
-    {
-        name: "Song 2",
-        file: "music/song2.mp3"
-    },
-
-    {
-        name: "Song 3",
-        file: "music/song3.mp3"
-    },
-
-    {
-        name: "Song 4",
-        file: "music/song4.mp3"
-    }
-
+    "music/song1.mp3",
+    "music/song2.mp3",
+    "music/song3.mp3",
+    "music/song4.mp3"
 ];
 
+let currentSong = -1;
 
-let currentSong = 0;
+const audio =
+    new Audio();
 
+audio.volume = 0.5;
 
-function playSong() {
+function chooseRandomSong() {
 
-    const player =
-        document.getElementById("musicPlayer");
+    if (songs.length === 0) {
+        return;
+    }
 
+    let next;
 
-    player.src =
-        songs[currentSong].file;
+    do {
 
+        next =
+            Math.floor(
+                Math.random() * songs.length
+            );
 
-    document.getElementById("songName")
-        .innerText =
-        songs[currentSong].name;
+    } while (
+        songs.length > 1 &&
+        next === currentSong
+    );
 
+    currentSong = next;
 
-    player.play().catch(() => {
+    audio.src =
+        songs[currentSong];
 
-        /*
-          Browsers may block autoplay.
-          The user can press Play manually.
-        */
+    document.getElementById("songTitle").textContent =
+        "🎵 Song " + (currentSong + 1);
 
-    });
+    audio.play().catch(() => {});
 
 }
 
 
 function toggleMusic() {
 
-    const player =
-        document.getElementById("musicPlayer");
+    if (!audio.src) {
 
-
-    if (!player.src) {
-
-        playSong();
+        chooseRandomSong();
 
         return;
-
     }
 
+    if (audio.paused) {
 
-    if (player.paused) {
+        audio.play().catch(() => {});
 
-        player.play();
+    } else {
 
-    }
-
-    else {
-
-        player.pause();
+        audio.pause();
 
     }
 
@@ -1679,25 +1365,140 @@ function toggleMusic() {
 
 function nextSong() {
 
-    currentSong++;
-
-    if (currentSong >= songs.length) {
-
-        currentSong = 0;
-
-    }
-
-    playSong();
+    chooseRandomSong();
 
 }
 
 
-document
-    .getElementById("musicPlayer")
-    .addEventListener(
-        "ended",
-        nextSong
-    );
+audio.addEventListener(
+    "ended",
+    nextSong
+);
+
+
+/* =========================
+   DISPLAY
+========================= */
+
+function formatMoney(number) {
+
+    return Math.floor(number)
+        .toLocaleString("en-US");
+
+}
+
+
+function updateDisplay() {
+
+    document.getElementById("moneyDisplay").textContent =
+        "$" + formatMoney(money);
+
+    document.getElementById("speedDisplay").textContent =
+        speed + "×";
+
+    document.getElementById("clickValue").textContent =
+        "+$" + formatMoney(getClickEarnings()) +
+        " per click";
+
+    document.getElementById("characterName").textContent =
+        vocaloids[selectedCharacter].name;
+
+    document.getElementById("vocaloidBonus").textContent =
+        "×" + vocaloids[selectedCharacter].multiplier;
+
+    document.getElementById("petBonus").textContent =
+        "+" + Math.round(petBonus * 100) + "%";
+
+    document.getElementById("rebirthBonus").textContent =
+        "+" + (rebirths * 25) + "%";
+
+    document.getElementById("rebirthCount").textContent =
+        rebirths;
+
+    document.getElementById("currentSpeedInfo").textContent =
+        speed + "×";
+
+    document.getElementById("currentRebirthBonus").textContent =
+        "+" + (rebirths * 25) + "%";
+
+
+    /* CHARACTER IMAGE */
+
+    document.getElementById("characterBox").style.backgroundPosition =
+        vocaloids[selectedCharacter].position;
+
+
+    /* SPEED BUTTON */
+
+    const speedButton =
+        document.getElementById("speedButton");
+
+    if (speed >= MAX_SPEED) {
+
+        speedButton.textContent =
+            "MAX";
+
+        speedButton.disabled = true;
+
+    } else {
+
+        speedButton.textContent =
+            "$" + formatMoney(getSpeedUpgradeCost());
+
+        speedButton.disabled =
+            money < getSpeedUpgradeCost();
+
+    }
+
+
+    /* AUTO CLICK */
+
+    const autoButton =
+        document.getElementById("autoClickButton");
+
+    const autoInfo =
+        document.getElementById("autoClickInfo");
+
+    if (!autoClickUnlocked) {
+
+        autoButton.textContent =
+            "$50";
+
+        autoButton.disabled =
+            money < 50;
+
+        autoInfo.textContent =
+            "Unlock Auto Click for $50";
+
+    } else {
+
+        const cost =
+            250 + (autoClickLevel * 250);
+
+        autoButton.textContent =
+            "$" + formatMoney(cost);
+
+        autoButton.disabled =
+            money < cost;
+
+        autoInfo.textContent =
+            "Level " +
+            autoClickLevel +
+            " • earns every second";
+
+    }
+
+
+    /* REBIRTH */
+
+    document.getElementById("rebirthRequirement").textContent =
+        speed.toLocaleString("en-US") +
+        "× / 100,000×";
+
+    document.getElementById("rebirthButton").disabled =
+        speed < REBIRTH_REQUIREMENT;
+
+}
 
 
 /* =========================
@@ -1706,38 +1507,37 @@ document
 
 function saveGame() {
 
-    const saveData = {
+    const gameData = {
 
-        money: money,
+        money,
+        speed,
+        speedUpgrades,
 
-        speed: speed,
+        autoClickUnlocked,
+        autoClickLevel,
 
-        upgradeLevel: upgradeLevel,
+        selectedCharacter,
 
-        autoClickUnlocked:
-            autoClickUnlocked,
+        rebirths,
 
-        rebirths: rebirths,
+        ownedCharacters,
+        ownedPets,
 
-        characterMultiplier:
-            characterMultiplier,
-
-        petMultiplier:
-            petMultiplier,
-
-        currentCharacter:
-            currentCharacter
+        petBonus
 
     };
 
-
     localStorage.setItem(
         "vocaloidClickerSave",
-        JSON.stringify(saveData)
+        JSON.stringify(gameData)
     );
 
 }
 
+
+/* =========================
+   LOAD GAME
+========================= */
 
 function loadGame() {
 
@@ -1746,55 +1546,68 @@ function loadGame() {
             "vocaloidClickerSave"
         );
 
-
     if (!saved) {
-
         return;
-
     }
-
 
     try {
 
         const data =
             JSON.parse(saved);
 
-
         money =
-            data.money || 0;
-
+            Number(data.money) || 0;
 
         speed =
-            data.speed || 1;
+            Number(data.speed) || 1;
 
-
-        upgradeLevel =
-            data.upgradeLevel || 0;
-
+        speedUpgrades =
+            Number(data.speedUpgrades) || 0;
 
         autoClickUnlocked =
-            data.autoClickUnlocked || false;
+            Boolean(data.autoClickUnlocked);
 
+        autoClickLevel =
+            Number(data.autoClickLevel) || 0;
+
+        selectedCharacter =
+            Number(data.selectedCharacter) || 0;
 
         rebirths =
-            data.rebirths || 0;
+            Number(data.rebirths) || 0;
+
+        ownedCharacters =
+            Array.isArray(data.ownedCharacters)
+                ? data.ownedCharacters
+                : [0];
+
+        ownedPets =
+            Array.isArray(data.ownedPets)
+                ? data.ownedPets
+                : [];
+
+        petBonus =
+            Number(data.petBonus) || 0;
 
 
-        characterMultiplier =
-            data.characterMultiplier || 1;
+        /* SAFETY CHECKS */
 
+        if (
+            selectedCharacter < 0 ||
+            selectedCharacter >= vocaloids.length
+        ) {
 
-        petMultiplier =
-            data.petMultiplier || 1;
+            selectedCharacter = 0;
 
+        }
 
-        currentCharacter =
-            data.currentCharacter || 0;
+        if (!ownedCharacters.includes(0)) {
 
+            ownedCharacters.unshift(0);
 
-    }
+        }
 
-    catch {
+    } catch (error) {
 
         console.log(
             "Save data could not be loaded."
@@ -1811,11 +1624,9 @@ function loadGame() {
 
 loadGame();
 
-createVocaloidShop();
+renderVocaloidShop();
 
-createPetShop();
-
-updateCharacterImage();
+renderPetShop();
 
 updateDisplay();
 
