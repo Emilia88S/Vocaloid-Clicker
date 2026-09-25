@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocaloid Clicker</title>
+  
+</head>
+<body id="preview">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocaloid Clicker</title>
+<style>
+    * {
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background:
+            radial-gradient(circle at center, #182c4d 0%, #090d1d 45%, #03040a 100%);
+        color: white;
+        overflow: hidden;
+    }
+
+    /* ---------------- TOP BAR ---------------- */
+
+    .topbar {
+        height: 85px;
+        background: rgba(4, 8, 20, 0.92);
+        border-bottom: 2px solid #31e8ff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        box-shadow: 0 0 25px #00d9ff55;
+        position: relative;
+        z-index: 10;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #5cecff;
+        text-shadow: 0 0 12px #00eaff;
+    }
+
+    .money {
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffe45e;
+        text-shadow: 0 0 12px #ffcc00;
+    }
+
+    /* ---------------- SIDE BAR ---------------- */
+
+    .sidebar {
+        position: absolute;
+        left: 20px;
+        top: 105px;
+        width: 220px;
+        z-index: 5;
+    }
+
+    .sideButton {
+        width: 100%;
+        padding: 17px;
+        margin-bottom: 12px;
+        border: none;
+        border-radius: 15px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+
+        background: linear-gradient(135deg, #16cfe7, #5865ff);
+
+        box-shadow:
+            0 0 12px #00d9ff66,
+            inset 0 0 12px #ffffff22;
+
+        transition: 0.2s;
+    }
+
+    .sideButton:hover {
+        transform: scale(1.04);
+        box-shadow:
+            0 0 25px #00eaff,
+            inset 0 0 15px #ffffff33;
+    }
+
+    .sideButton:active {
+        transform: scale(0.97);
+    }
+
+    .upgradePanel {
+        display: none;
+        background: rgba(5, 10, 30, 0.95);
+        border: 1px solid #36e7ff;
+        border-radius: 15px;
+        padding: 15px;
+        margin-bottom: 12px;
+        box-shadow: 0 0 20px #00eaff44;
+    }
+
+    .upgradePanel h3 {
+        margin-top: 0;
+        color: #5cecff;
+    }
+
+    .upgradePanel p {
+        color: #c7eaff;
+        line-height: 1.5;
+    }
+
+    .upgradeAction {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #21d47a;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .upgradeAction:hover {
+        background: #2cf58e;
+    }
+
+    .upgradeAction:disabled {
+        background: #444;
+        color: #999;
+        cursor: not-allowed;
+    }
+
+    /* ---------------- MAIN GAME ---------------- */
+
+    .game {
+        height: calc(100vh - 85px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .characterArea {
+        text-align: center;
+        margin-left: 120px;
+    }
+
+    .characterName {
+        font-size: 35px;
+        font-weight: bold;
+        color: #67edff;
+        text-shadow: 0 0 15px #00eaff;
+        margin-bottom: 15px;
+    }
+
+    .character {
+        width: 280px;
+        height: 350px;
+        position: relative;
+        margin: auto;
+        cursor: pointer;
+
+        transition: transform 0.1s;
+    }
+
+    .character:hover {
+        transform: scale(1.04);
+    }
+
+    .character:active {
+        transform: scale(0.93);
+    }
+
+    /* Stylized Miku-like character */
+    .head {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #ffe0c0;
+        position: absolute;
+        left: 65px;
+        top: 25px;
+        border: 5px solid #172b43;
+        z-index: 3;
+    }
+
+    .hair {
+        position: absolute;
+        width: 190px;
+        height: 210px;
+        left: 45px;
+        top: 5px;
+        z-index: 2;
+    }
+
+    .hair:before,
+    .hair:after {
+        content: "";
+        position: absolute;
+        width: 65px;
+        height: 205px;
+        background: #20e0d0;
+        border-radius: 50%;
+        box-shadow: 0 0 20px #00ffe1;
+    }
+
+    .hair:before {
+        left: 0;
+        transform: rotate(8deg);
+    }
+
+    .hair:after {
+        right: 0;
+        transform: rotate(-8deg);
+    }
+
+    .face {
+        position: absolute;
+        top: 85px;
+        left: 90px;
+        z-index: 5;
+        font-size: 30px;
+    }
+
+    .body {
+        width: 120px;
+        height: 145px;
+        background: linear-gradient(#111d32, #1a3150);
+        position: absolute;
+        top: 165px;
+        left: 80px;
+        border-radius: 25px 25px 15px 15px;
+        border: 3px solid #5defff;
+        box-shadow: 0 0 25px #00eaff55;
+        z-index: 2;
+    }
+
+    .tie {
+        width: 0;
+        height: 0;
+        border-left: 17px solid transparent;
+        border-right: 17px solid transparent;
+        border-top: 55px solid #ef3a58;
+        position: absolute;
+        left: 43px;
+        top: 12px;
+    }
+
+    .arm {
+        position: absolute;
+        width: 35px;
+        height: 110px;
+        background: #ffe0c0;
+        border-radius: 20px;
+        top: 175px;
+        z-index: 1;
+    }
+
+    .arm.left {
+        left: 50px;
+        transform: rotate(20deg);
+    }
+
+    .arm.right {
+        right: 50px;
+        transform: rotate(-20deg);
+    }
+
+    .legs {
+        position: absolute;
+        top: 300px;
+        left: 95px;
+    }
+
+    .leg {
+        display: inline-block;
+        width: 38px;
+        height: 75px;
+        background: #202e46;
+        margin: 0 5px;
+        border-radius: 10px;
+    }
+
+    .clickHint {
+        margin-top: 15px;
+        color: #b9d8e5;
+        font-size: 16px;
+    }
+
+    .speedDisplay {
+        margin-top: 8px;
+        color: #ffe45e;
+        font-weight: bold;
+    }
+
+    /* ---------------- SHOP ---------------- */
+
+    .shop {
+        display: none;
+        position: absolute;
+        z-index: 20;
+
+        width: 700px;
+        max-height: 80vh;
+
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        background: rgba(4, 8, 25, 0.98);
+        border: 2px solid #2beaff;
+        border-radius: 20px;
+        padding: 25px;
+
+        box-shadow: 0 0 50px #00eaff55;
+
+        overflow-y: auto;
+    }
+
+    .shop h2 {
+        text-align: center;
+        color: #5cecff;
+        text-shadow: 0 0 10px #00eaff;
+    }
+
+    .shopGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .shopCard {
+        background: linear-gradient(145deg, #101b36, #0a1023);
+        border: 1px solid #3b9bb0;
+        border-radius: 15px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .shopAvatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 35px;
+        background: #263f63;
+        border: 3px solid #5cecff;
+        box-shadow: 0 0 15px #00eaff66;
+    }
+
+    .shopCard h3 {
+        margin: 10px 0 5px;
+    }
+
+    .shopCard p {
+        color: #c2d8e5;
+        margin: 5px;
+    }
+
+    .shopCard button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #5666ff;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 8px;
+    }
+
+    .shopCard button:hover {
+        background: #7885ff;
+    }
+
+    .shopCard button:disabled {
+        background: #444;
+        color: #888;
+        cursor: not-allowed;
+    }
+
+    .closeShop {
+        display: block;
+        margin: 20px auto 0;
+        padding: 10px 25px;
+        background: #e83c68;
+        border: none;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    /* ---------------- FLOATING MONEY ---------------- */
+
+    .floatingMoney {
+        position: absolute;
+        pointer-events: none;
+        color: #ffe45e;
+        font-size: 25px;
+        font-weight: bold;
+        animation: floatMoney 0.9s ease-out forwards;
+        text-shadow: 0 0 10px #ffbb00;
+        z-index: 50;
+    }
+
+    @keyframes floatMoney {
+        0% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-100px) scale(1.4);
+        }
+    }
+
+    .particle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #5cecff;
+        pointer-events: none;
+        animation: particle 0.7s ease-out forwards;
+    }
+
+    @keyframes particle {
+        to {
+            transform: translate(var(--x), var(--y)) scale(0);
+            opacity: 0;
+        }
+    }
+
+    /* ---------------- RESPONSIVE ---------------- */
+
+    @media(max-width: 800px) {
+        .sidebar {
+            width: 150px;
+        }
+
+        .characterArea {
+            margin-left: 130px;
+        }
+
+        .shop {
+            width: 90%;
+        }
+    }
+</style>
+</head>
+<body>
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="title">🎤 VOCALOID CLICKER</div>
+    <div class="money" id="money">$0</div>
+</div>
+<!-- LEFT SIDE -->
+<div class="sidebar">
+<pre class="has-line-data" data-line-start="469" data-line-end="498"><code>&lt;button class=&quot;sideButton&quot; onclick=&quot;toggleUpgrade()&quot;&gt;
+    ⚡ UPGRADES
+&lt;/button&gt;
+
+&lt;div class=&quot;upgradePanel&quot; id=&quot;upgradePanel&quot;&gt;
+
+    &lt;h3&gt;⚡ Speed Lab&lt;/h3&gt;
+
+    &lt;p&gt;
+        Speed:
+        &lt;strong id=&quot;upgradeSpeed&quot;&gt;1×&lt;/strong&gt;
+    &lt;/p&gt;
+
+    &lt;p id=&quot;autoStatus&quot;&gt;
+        Auto Clicker: 🔒 Locked
+    &lt;/p&gt;
+
+    &lt;button
+        class=&quot;upgradeAction&quot;
+        id=&quot;upgradeButton&quot;
+        onclick=&quot;buyUpgrade()&quot;&gt;
+        Unlock Auto Clicker - $50
+    &lt;/button&gt;
+
+&lt;/div&gt;
+
+&lt;button class=&quot;sideButton&quot; onclick=&quot;openShop()&quot;&gt;
+    🛒 VOCALOID SHOP
+&lt;/button&gt;
+</code></pre>
+</div>
+<!-- MAIN GAME -->
+<div class="game">
+<pre class="has-line-data" data-line-start="504" data-line-end="547"><code>&lt;div class=&quot;characterArea&quot;&gt;
+
+    &lt;div class=&quot;characterName&quot; id=&quot;characterName&quot;&gt;
+        Hatsune Miku
+    &lt;/div&gt;
+
+    &lt;div
+        class=&quot;character&quot;
+        id=&quot;character&quot;
+        onclick=&quot;clickCharacter(event)&quot;
+    &gt;
+
+        &lt;div class=&quot;hair&quot;&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;face&quot;&gt;
+            ◕‿◕
+        &lt;/div&gt;
+
+        &lt;div class=&quot;body&quot;&gt;
+            &lt;div class=&quot;tie&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;arm left&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;arm right&quot;&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;legs&quot;&gt;
+            &lt;div class=&quot;leg&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;leg&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class=&quot;clickHint&quot;&gt;
+        ✨ CLICK THE VOCALOID! ✨
+    &lt;/div&gt;
+
+    &lt;div class=&quot;speedDisplay&quot;&gt;
+        Click Speed: &lt;span id=&quot;speed&quot;&gt;1&lt;/span&gt;×
+    &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+</div>
+<!-- SHOP -->
+<div class="shop" id="shop">
+<pre class="has-line-data" data-line-start="553" data-line-end="616"><code>&lt;h2&gt;🎤 VOCALOID SHOP 🎤&lt;/h2&gt;
+
+&lt;div class=&quot;shopGrid&quot;&gt;
+
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🎀&lt;/div&gt;
+        &lt;h3&gt;Megurine Luka&lt;/h3&gt;
+        &lt;p&gt;Price: $1,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Megurine Luka',1500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💛&lt;/div&gt;
+        &lt;h3&gt;Kagamine Rin&lt;/h3&gt;
+        &lt;p&gt;Price: $2,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Kagamine Rin',2000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💛&lt;/div&gt;
+        &lt;h3&gt;Kagamine Len&lt;/h3&gt;
+        &lt;p&gt;Price: $2,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Kagamine Len',2500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🩷&lt;/div&gt;
+        &lt;h3&gt;MEIKO&lt;/h3&gt;
+        &lt;p&gt;Price: $3,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('MEIKO',3500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💙&lt;/div&gt;
+        &lt;h3&gt;KAITO&lt;/h3&gt;
+        &lt;p&gt;Price: $4,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('KAITO',4500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🌟&lt;/div&gt;
+        &lt;h3&gt;Secret Vocaloid&lt;/h3&gt;
+        &lt;p&gt;Price: $5,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Secret Vocaloid',5500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;button class=&quot;closeShop&quot; onclick=&quot;closeShop()&quot;&gt;
+    CLOSE SHOP
+&lt;/button&gt;
+</code></pre>
+</div>
+<script>
+
+/* =========================================================
+   GAME VARIABLES
+========================================================= */
+
+let money = 0;
+
+let speed = 1;
+
+const MAX_SPEED = 100000;
+
+let autoClickUnlocked = false;
+
+let upgradeLevel = 0;
+
+let equippedCharacter = "Hatsune Miku";
+
+let ownedCharacters = ["Hatsune Miku"];
+
+
+/* =========================================================
+   MONEY DISPLAY
+========================================================= */
+
+function updateMoney() {
+
+    document.getElementById("money").textContent =
+        "$" + Math.floor(money).toLocaleString();
+
+}
+
+
+/* =========================================================
+   CHARACTER CLICK
+========================================================= */
+
+function clickCharacter(event) {
+
+    /*
+        $10 base reward × speed
+    */
+
+    const earnings = 10 * speed;
+
+    money += earnings;
+
+    updateMoney();
+
+    createFloatingMoney(
+        event.clientX,
+        event.clientY,
+        "+" + formatMoney(earnings)
+    );
+
+    createParticles(event.clientX, event.clientY);
+
+}
+
+
+/* =========================================================
+   MONEY FORMATTER
+========================================================= */
+
+function formatMoney(value) {
+
+    if (value >= 1000000000)
+        return "$" + (value / 1000000000).toFixed(1) + "B";
+
+    if (value >= 1000000)
+        return "$" + (value / 1000000).toFixed(1) + "M";
+
+    if (value >= 1000)
+        return "$" + (value / 1000).toFixed(1) + "K";
+
+    return "$" + Math.floor(value);
+
+}
+
+
+/* =========================================================
+   UPGRADE MENU
+========================================================= */
+
+function toggleUpgrade() {
+
+    const panel =
+        document.getElementById("upgradePanel");
+
+    if (panel.style.display === "block") {
+
+        panel.style.display = "none";
+
+    } else {
+
+        panel.style.display = "block";
+
+    }
+
+}
+
+
+/* =========================================================
+   UPGRADE SYSTEM
+========================================================= */
+
+function buyUpgrade() {
+
+    /*
+        First purchase:
+        $50 = unlock Auto Clicker
+
+        Second purchase:
+        $100 = first speed upgrade
+
+        Every upgrade after:
+        $150
+    */
+
+    if (!autoClickUnlocked) {
+
+        if (money < 50) {
+
+            alert("You need $50 to unlock Auto Clicker!");
+
+            return;
+
+        }
+
+        money -= 50;
+
+        autoClickUnlocked = true;
+
+        document.getElementById("autoStatus").innerHTML =
+            "Auto Clicker: ✅ Unlocked";
+
+        document.getElementById("upgradeButton").textContent =
+            "Speed Upgrade - $100";
+
+        startAutoClicker();
+
+        updateMoney();
+
+        return;
+    }
+
+
+    /* Maximum speed */
+
+    if (speed >= MAX_SPEED) {
+
+        alert("MAXIMUM SPEED REACHED! 🚀");
+
+        return;
+
+    }
+
+
+    /* First speed upgrade costs $100 */
+
+    let price;
+
+    if (upgradeLevel === 0) {
+
+        price = 100;
+
+    } else {
+
+        price = 150;
+
+    }
+
+
+    if (money < price) {
+
+        alert(
+            "You need $" +
+            price +
+            " for this upgrade!"
+        );
+
+        return;
+
+    }
+
+
+    money -= price;
+
+    speed += 0.5;
+
+    upgradeLevel++;
+
+    /*
+        Prevent going over maximum.
+    */
+
+    if (speed > MAX_SPEED) {
+
+        speed = MAX_SPEED;
+
+    }
+
+
+    updateMoney();
+
+    updateSpeedDisplay();
+
+    updateUpgradeButton();
+
+}
+
+
+/* =========================================================
+   SPEED DISPLAY
+========================================================= */
+
+function updateSpeedDisplay() {
+
+    document.getElementById("speed").textContent =
+        formatSpeed(speed);
+
+    document.getElementById("upgradeSpeed").textContent =
+        formatSpeed(speed);
+
+}
+
+
+/* =========================================================
+   SPEED FORMAT
+========================================================= */
+
+function formatSpeed(value) {
+
+    if (value >= 1000) {
+
+        return value.toLocaleString() + "×";
+
+    }
+
+    return value.toFixed(1).replace(".0", "") + "×";
+
+}
+
+
+/* =========================================================
+   UPGRADE BUTTON UPDATE
+========================================================= */
+
+function updateUpgradeButton() {
+
+    const button =
+        document.getElementById("upgradeButton");
+
+
+    if (speed >= MAX_SPEED) {
+
+        button.textContent =
+            "🚀 MAX SPEED";
+
+        button.disabled = true;
+
+        return;
+
+    }
+
+
+    let price;
+
+    if (upgradeLevel === 0) {
+
+        price = 100;
+
+    } else {
+
+        price = 150;
+
+    }
+
+
+    button.textContent =
+        "⚡ Upgrade Speed - $" + price;
+
+}
+
+
+/* =========================================================
+   AUTO CLICKER
+========================================================= */
+
+function startAutoClicker() {
+
+    setInterval(() => {
+
+        if (!autoClickUnlocked)
+            return;
+
+
+        /*
+            Auto clicking becomes faster
+            as your speed increases.
+
+            At 1×:
+            1 automatic click every second.
+
+            At 2×:
+            2 clicks per second.
+
+            At higher levels:
+            the interval becomes extremely small.
+        */
+
+        const earningsPerSecond =
+            10 * speed;
+
+        money += earningsPerSecond;
+
+        updateMoney();
+
+    }, 1000);
+
+}
+
+
+/* =========================================================
+   SHOP
+========================================================= */
+
+function openShop() {
+
+    document.getElementById("shop").style.display =
+        "block";
+
+}
+
+
+function closeShop() {
+
+    document.getElementById("shop").style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   CHARACTER PURCHASE
+========================================================= */
+
+function buyCharacter(name, price) {
+
+    /*
+        Already owned?
+        Just equip them.
+    */
+
+    if (ownedCharacters.includes(name)) {
+
+        equippedCharacter = name;
+
+        document.getElementById("characterName").textContent =
+            name;
+
+        closeShop();
+
+        return;
+
+    }
+
+
+    if (money < price) {
+
+        alert(
+            "You need $" +
+            price.toLocaleString() +
+            " to unlock " +
+            name + "!"
+        );
+
+        return;
+
+    }
+
+
+    money -= price;
+
+    ownedCharacters.push(name);
+
+    equippedCharacter = name;
+
+    document.getElementById("characterName").textContent =
+        name;
+
+    updateMoney();
+
+    closeShop();
+
+
+    alert(
+        "🎉 " +
+        name +
+        " unlocked and equipped!"
+    );
+
+}
+
+
+/* =========================================================
+   FLOATING MONEY
+========================================================= */
+
+function createFloatingMoney(x, y, text) {
+
+    const element =
+        document.createElement("div");
+
+    element.className =
+        "floatingMoney";
+
+    element.textContent =
+        text;
+
+    element.style.left =
+        x + "px";
+
+    element.style.top =
+        y + "px";
+
+    document.body.appendChild(element);
+
+
+    setTimeout(() => {
+
+        element.remove();
+
+    }, 900);
+
+}
+
+
+/* =========================================================
+   CLICK PARTICLES
+========================================================= */
+
+function createParticles(x, y) {
+
+    for (let i = 0; i < 8; i++) {
+
+        const particle =
+            document.createElement("div");
+
+        particle.className =
+            "particle";
+
+        particle.style.left =
+            x + "px";
+
+        particle.style.top =
+            y + "px";
+
+
+        const randomX =
+            (Math.random() - 0.5) * 180;
+
+        const randomY =
+            (Math.random() - 0.5) * 180;
+
+
+        particle.style.setProperty(
+            "--x",
+            randomX + "px"
+        );
+
+        particle.style.setProperty(
+            "--y",
+            randomY + "px"
+        );
+
+
+        document.body.appendChild(particle);
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 700);
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateMoney();
+
+updateSpeedDisplay();
+
+updateUpgradeButton();
+
+</script>
+</body>
+</html>```html
+<!-- EXPANDED VOCALOID SHOP -->
+<div class="shop" id="shop">
+<pre class="has-line-data" data-line-start="1128" data-line-end="1291"><code>&lt;h2&gt;🎤 VOCALOID SHOP 🎤&lt;/h2&gt;
+
+&lt;p style=&quot;text-align:center;color:#9edbea;&quot;&gt;
+    Collect Vocaloids and equip your favorite singer!
+&lt;/p&gt;
+
+&lt;div class=&quot;shopGrid&quot;&gt;
+
+    &lt;!-- MIKU --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🩵&lt;/div&gt;
+        &lt;h3&gt;Hatsune Miku&lt;/h3&gt;
+        &lt;p&gt;FREE&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Hatsune Miku',0)&quot;&gt;
+            EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- LUKA --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🩷&lt;/div&gt;
+        &lt;h3&gt;Megurine Luka&lt;/h3&gt;
+        &lt;p&gt;Price: $1,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Megurine Luka',1500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- RIN --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💛&lt;/div&gt;
+        &lt;h3&gt;Kagamine Rin&lt;/h3&gt;
+        &lt;p&gt;Price: $2,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Kagamine Rin',2000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- LEN --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💛&lt;/div&gt;
+        &lt;h3&gt;Kagamine Len&lt;/h3&gt;
+        &lt;p&gt;Price: $2,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Kagamine Len',2500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- MEIKO --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;❤️&lt;/div&gt;
+        &lt;h3&gt;MEIKO&lt;/h3&gt;
+        &lt;p&gt;Price: $3,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('MEIKO',3500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- KAITO --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💙&lt;/div&gt;
+        &lt;h3&gt;KAITO&lt;/h3&gt;
+        &lt;p&gt;Price: $4,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('KAITO',4500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- GUMI --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💚&lt;/div&gt;
+        &lt;h3&gt;GUMI&lt;/h3&gt;
+        &lt;p&gt;Price: $5,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('GUMI',5000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- FLOWER --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💜&lt;/div&gt;
+        &lt;h3&gt;v flower&lt;/h3&gt;
+        &lt;p&gt;Price: $6,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('v flower',6000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- IA --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🤍&lt;/div&gt;
+        &lt;h3&gt;IA&lt;/h3&gt;
+        &lt;p&gt;Price: $7,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('IA',7000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- YUZUKI YUKARI --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💜&lt;/div&gt;
+        &lt;h3&gt;Yuzuki Yukari&lt;/h3&gt;
+        &lt;p&gt;Price: $8,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Yuzuki Yukari',8000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- OTOMACHI UNA --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🧡&lt;/div&gt;
+        &lt;h3&gt;Otomachi Una&lt;/h3&gt;
+        &lt;p&gt;Price: $9,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Otomachi Una',9000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- SEE-U --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💗&lt;/div&gt;
+        &lt;h3&gt;SeeU&lt;/h3&gt;
+        &lt;p&gt;Price: $10,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('SeeU',10000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- KASANE TETO --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;❤️&lt;/div&gt;
+        &lt;h3&gt;Kasane Teto&lt;/h3&gt;
+        &lt;p&gt;Price: $12,500&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Kasane Teto',12500)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- KIZUNA AI --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;💗&lt;/div&gt;
+        &lt;h3&gt;Kizuna AI&lt;/h3&gt;
+        &lt;p&gt;Price: $15,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('Kizuna AI',15000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- SECRET --&gt;
+    &lt;div class=&quot;shopCard&quot;&gt;
+        &lt;div class=&quot;shopAvatar&quot;&gt;🌈&lt;/div&gt;
+        &lt;h3&gt;??? SECRET VOCALOID&lt;/h3&gt;
+        &lt;p&gt;Price: $25,000&lt;/p&gt;
+        &lt;button onclick=&quot;buyCharacter('??? Secret Vocaloid',25000)&quot;&gt;
+            BUY / EQUIP
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;button class=&quot;closeShop&quot; onclick=&quot;closeShop()&quot;&gt;
+    CLOSE SHOP
+&lt;/button&gt;
+</code></pre>
+</div>
+```<button class="sideButton" onclick="rebirth()">
+    🔄 REBIRTH
+</button>
+<div class="upgradePanel" id="rebirthPanel">
+<pre class="has-line-data" data-line-start="1299" data-line-end="1321"><code>&lt;h3&gt;🔄 Rebirth&lt;/h3&gt;
+
+&lt;p&gt;
+    Required Speed:
+    &lt;strong&gt;100,000×&lt;/strong&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+    Rebirths:
+    &lt;strong id=&quot;rebirthCount&quot;&gt;0&lt;/strong&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+    Permanent Bonus:
+    &lt;strong id=&quot;rebirthBonus&quot;&gt;+0%&lt;/strong&gt;
+&lt;/p&gt;
+
+&lt;button
+    class=&quot;upgradeAction&quot;
+    onclick=&quot;confirmRebirth()&quot;&gt;
+    REBIRTH
+&lt;/button&gt;
+</code></pre>
+</div>
+</body>
+</html>
